@@ -2,10 +2,11 @@
 
 namespace App\Core\Application\User\DTO;
 
+use App\Core\Application\Interfaces\DTO\DTOInterface;
 use App\Core\Domain\Entities\UserEntity;
 use DateTime;
 
-class UserDTO {
+class UserDTO implements DTOInterface {
     public function __construct(
         public string|int $id = '',
         public string $name = '',
@@ -21,7 +22,7 @@ class UserDTO {
 
 
 
-    public function mapToEntity()
+    public function mapToEntity() : UserEntity
     {
         return new UserEntity(
             $this->id,

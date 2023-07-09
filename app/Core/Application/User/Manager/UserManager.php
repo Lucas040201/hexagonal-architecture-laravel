@@ -6,34 +6,38 @@ use App\Core\Application\Requests\CreateUserRequest;
 use App\Core\Application\User\DTO\UserDTO;
 use App\Core\Application\User\Ports\UserManagerInterface;
 use App\Core\Application\User\Response\UserResponse;
+use App\Core\Application\User\Validators\UserValidator;
 use App\Core\Domain\Ports\UserRepositoryInterface;
 use Exception;
 
 class UserManager implements UserManagerInterface {
 
 
-    public function __construct(private UserRepositoryInterface $userRepository)
+    public function __construct(
+        private UserRepositoryInterface $userRepository,
+        private UserValidator $userValidator
+        )
     {
-        
+
     }
 
     public function createUser(UserDTO $userDTO): UserResponse
     {
         try {
             $userEntity = $userDTO->mapToEntity();
+
+            $this->userValidator->validate($userEntity);
+
             $storedUser = $this->userRepository->create($userEntity);
-            print_r('aqui222');
-            die(); 
 
             return new UserResponse(
                 true,
                 '',
                 null,
+
             );
         } catch(Exception $e) {
-            print_r($e->getMessage());
-          print_r('aqui333');
-          die();  
+            throw new $e;
         }
     }
 

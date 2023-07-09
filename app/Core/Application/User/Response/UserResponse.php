@@ -9,9 +9,9 @@ use App\Core\Application\ErrorCodes;
 class UserResponse extends Response {
 
     public function __construct(
-        bool $succes = false,
-        string $message = '',
-        public ErrorCodes|null $errorCode = null,
+        bool                $succes = false,
+        string              $message = '',
+        public ErrorCodes   $errorCode = ErrorCodes::NONE,
         public UserDto|null $data = null
         ) {
         parent::__construct(
@@ -21,5 +21,5 @@ class UserResponse extends Response {
         );
     }
 
-    
+
 }

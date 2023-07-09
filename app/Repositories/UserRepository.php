@@ -8,11 +8,9 @@ use App\Core\Domain\Ports\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface {
     public function __construct(
-        private Users $userModel
+        private Users $userModel,
     )
-    {
-        
-    }
+    {}
 
     public function get(int $userId): UserEntity
     {
@@ -20,12 +18,11 @@ class UserRepository implements UserRepositoryInterface {
         return new UserEntity(...$user->attributesToArray());
     }
 
-    public function create(UserEntity $user): int
+    public function create(UserEntity $user): UserEntity
     {
         $response = $this->userModel->create((array) $user);
-        print_r($response);
-        die();
-        return 1;
+        $user = $response->attributesToArray();
+        return new UserEntity(...$user);
     }
 
     public function update(UserEntity $user, $data)
@@ -34,5 +31,16 @@ class UserRepository implements UserRepositoryInterface {
 
     public function delete(UserEntity $user)
     {
+
+    }
+
+    public function emailExists(string $email)
+    {
+        return !!$this->userModel::where('email', $email)->exists();
+    }
+
+    public function usernameExists(string $username)
+    {
+        return !!$this->userModel::where('username', $username)->exists();
     }
 }

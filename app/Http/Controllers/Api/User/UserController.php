@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Core\Application\User\Manager\UserManager;
+use App\Core\Domain\DomainExceptions\User\UserEmailAlreadyExistsException;
+use App\Core\Domain\DomainExceptions\User\UserUsernameAlreadyExistsException;
 use App\Http\Requests\CreateUserRequestController;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -23,6 +25,11 @@ class UserController extends BaseController
         try {
             $userDTO = $request->createDTO();
             return $this->userManager->createUser($userDTO);
+        } catch(UserEmailAlreadyExistsException|UserUsernameAlreadyExistsException $e) {
+            return response([
+                    'Success' => false,
+                    'message' => $e->getMessage(),
+                ], 400);
         } catch(Exception) {
 
         }
