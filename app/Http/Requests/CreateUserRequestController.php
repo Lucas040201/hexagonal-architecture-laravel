@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Core\Application\User\DTO\UserDTO;
 use App\Http\Requests\interface\RequestInterface;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
+use Core\Application\User\DTO\UserDTO;
 
 class CreateUserRequestController extends FormRequest implements RequestInterface
 {
