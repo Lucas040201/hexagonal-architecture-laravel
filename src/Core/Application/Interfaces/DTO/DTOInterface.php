@@ -2,7 +2,7 @@
 
 namespace Core\Application\Interfaces\DTO;
 
-use Core\Domain\Entities\Interfaces\EntityInterface;
+use Core\Domain\Interfaces\Entity\EntityInterface;
 
 interface DTOInterface {
     public function mapToEntity(): EntityInterface;

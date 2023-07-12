@@ -1,9 +1,9 @@
 <?php
 
-namespace Core\Domain\Ports;
+namespace Core\Domain\Users\Ports;
 
-use Core\Domain\Entities\Interfaces\EntityInterface;
-use Core\Domain\Entities\UserEntity;
+use Core\Domain\Interfaces\Entity\EntityInterface;
+use Core\Domain\Users\Entities\UserEntity;
 
 interface UserRepositoryInterface {
 

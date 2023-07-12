@@ -2,13 +2,10 @@
 
 namespace Core\Application\User\DTO;
 
-use Core\Domain\DomainExceptions\User\InvalidEmailException;
-use Core\Domain\DomainExceptions\User\ShortNameOrSurnameException;
-use Core\Domain\DomainExceptions\User\ShortPasswordException;
-use Core\Domain\Entities\Interfaces\EntityInterface;
-use DateTime;
 use Core\Application\Interfaces\DTO\DTOInterface;
-use Core\Domain\Entities\UserEntity;
+use Core\Domain\Interfaces\Entity\EntityInterface;
+use Core\Domain\Users\Entities\UserEntity;
+use DateTime;
 
 class UserDTO implements DTOInterface {
     public function __construct(
@@ -25,9 +22,9 @@ class UserDTO implements DTOInterface {
     }
 
     /**
-     * @throws InvalidEmailException
-     * @throws ShortNameOrSurnameException
-     * @throws ShortPasswordException
+     * @throws \Core\Domain\Users\Exceptions\User\InvalidEmailException
+     * @throws \Core\Domain\Users\Exceptions\ShortNameOrSurnameException
+     * @throws \Core\Domain\Users\Exceptions\User\ShortPasswordException
      */
     public function mapToEntity() : UserEntity
     {

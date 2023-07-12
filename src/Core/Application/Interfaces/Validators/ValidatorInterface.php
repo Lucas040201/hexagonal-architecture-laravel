@@ -2,8 +2,9 @@
 
 namespace Core\Application\Interfaces\Validators;
 
-use Core\Domain\Entities\Interfaces\EntityInterface;
+use Core\Domain\Interfaces\Entity\EntityInterface;
 
 interface ValidatorInterface {
-    public function validate(EntityInterface $entity);
+    public function validateCreate(EntityInterface $entity);
+    public function validateUpdate(EntityInterface $entity);
 }

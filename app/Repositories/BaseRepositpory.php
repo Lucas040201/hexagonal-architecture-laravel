@@ -3,9 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Interfaces\ModelInterface;
-use Core\Domain\Entities\BaseEntity;
-use Core\Domain\Entities\Interfaces\EntityInterface;
-use Core\Domain\Interfaces\BaseRepositoryInterface;
+use Core\Domain\Interfaces\Entity\EntityInterface;
+use Core\Domain\Users\Interfaces\BaseRepositoryInterface;
 
 
 abstract class BaseRepositpory implements BaseRepositoryInterface

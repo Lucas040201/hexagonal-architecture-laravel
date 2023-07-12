@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Domain\Entities\Interfaces;
+namespace Core\Domain\Interfaces\Entity;
 
 interface EntityInterface {
     public static function factory(array $data);

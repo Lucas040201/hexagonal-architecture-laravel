@@ -1,17 +1,14 @@
 <?php
 
-namespace Core\Domain\Entities;
+namespace Core\Domain\Users\Entities;
 
-use Core\Domain\DomainExceptions\User\InvalidEmailException;
-use Core\Domain\DomainExceptions\User\ShortNameOrSurnameException;
-use Core\Domain\DomainExceptions\User\ShortPasswordException;
+use Core\Domain\BaseEntity;
+use Core\Domain\DomainExceptions\EntityValidationException;
 use DateTime;
 
 class UserEntity extends BaseEntity {
     /**
-     * @throws ShortNameOrSurnameException
-     * @throws ShortPasswordException
-     * @throws InvalidEmailException
+     * @throws EntityValidationException
      */
     public function __construct(
         public int|string $id = '',
@@ -27,24 +24,18 @@ class UserEntity extends BaseEntity {
     }
 
     /**
-     * @throws ShortNameOrSurnameException
-     * @throws ShortPasswordException
-     * @throws InvalidEmailException
+     * @throws EntityValidationException
      */
     protected function validateEntity(): void
     {
         if(empty($this->created_at) && empty($this->updated_at)) return;
 
         if(strlen($this->name) < 3 || strlen($this->surname) < 3) {
-            throw new ShortNameOrSurnameException();
-        }
-
-        if(strlen($this->password) < 6 || strlen($this->password) > 16) {
-            throw new ShortPasswordException();
+            throw new EntityValidationException('The first and last name fields must have at least 2 characters', 400);
         }
 
         if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidEmailException();
+            throw new EntityValidationException('The email field must be a valid email address.', 400);
         }
     }
 

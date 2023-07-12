@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Requests\CreateUserRequestController;
-use Core\Domain\DomainExceptions\User\InvalidEmailException;
-use Core\Domain\DomainExceptions\User\ShortNameOrSurnameException;
-use Core\Domain\DomainExceptions\User\ShortPasswordException;
+use Core\Application\User\Exceptions\UserEmailAlreadyExistsException;
+use Core\Application\User\Exceptions\UserUsernameAlreadyExistsException;
+use Core\Application\User\Manager\UserManager;
+use Core\Domain\DomainExceptions\EntityValidationException;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Core\Application\User\Exceptions\UserEmailAlreadyExistsException;
-use Core\Application\User\Exceptions\UserUsernameAlreadyExistsException;
-use Core\Application\User\Manager\UserManager;
 
 class UserController extends BaseController
 {
@@ -33,7 +31,7 @@ class UserController extends BaseController
                     'Success' => false,
                     'message' => $e->getMessage(),
                 ], $e->getCode());
-        } catch(InvalidEmailException|ShortPasswordException|ShortNameOrSurnameException $e) {
+        } catch(EntityValidationException $e) {
             return response([
                 'Success' => false,
                 'message' => $e->getMessage(),

@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Domain\Entities;
+namespace Core\Domain;
 
-use Core\Domain\Entities\Interfaces\EntityInterface;
+use Core\Domain\Interfaces\Entity\EntityInterface;
 
 abstract class BaseEntity implements EntityInterface
 {

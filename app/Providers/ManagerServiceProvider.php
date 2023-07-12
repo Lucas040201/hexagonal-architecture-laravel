@@ -3,15 +3,12 @@
 namespace App\Providers;
 
 use App\Models\Users;
-use App\Repositories\UserRepository;
-use Core\Application\User\DTO\UserDTO;
-use Core\Application\User\Response\UserResponse;
-use Core\Application\User\Validators\UserValidator;
-use Core\Domain\Entities\UserEntity;
-use Illuminate\Support\ServiceProvider;
+use App\Repositories\Users\UserRepository;
 use Core\Application\User\Manager\UserManager;
 use Core\Application\User\Ports\UserManagerInterface;
-use Core\Domain\Ports\UserRepositoryInterface;
+use Core\Domain\Users\Entities\UserEntity;
+use Core\Domain\Users\Ports\UserRepositoryInterface;
+use Illuminate\Support\ServiceProvider;
 
 class ManagerServiceProvider extends ServiceProvider
 {

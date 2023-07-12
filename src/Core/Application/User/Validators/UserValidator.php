@@ -4,10 +4,10 @@ namespace Core\Application\User\Validators;
 
 use Core\Application\Interfaces\Validators\ValidatorInterface;
 use Core\Application\User\Exceptions\UserEmailAlreadyExistsException;
-use Core\Application\User\Exceptions\UserPasswordIsTooweakException;
+use Core\Application\User\Exceptions\UserPasswordIsTooWeakException;
 use Core\Application\User\Exceptions\UserUsernameAlreadyExistsException;
-use Core\Domain\Entities\Interfaces\EntityInterface;
-use Core\Domain\Ports\UserRepositoryInterface;
+use Core\Domain\Interfaces\Entity\EntityInterface;
+use Core\Domain\Users\Ports\UserRepositoryInterface;
 
 class UserValidator implements ValidatorInterface {
 
@@ -17,24 +17,31 @@ class UserValidator implements ValidatorInterface {
     {}
 
     /**
-     * @throws UserPasswordIsTooweakException
+     * @throws UserPasswordIsTooWeakException
      * @throws UserEmailAlreadyExistsException
      */
-    public function validate(EntityInterface $entity): void
+    public function validateCreate(EntityInterface $entity): void
     {
         $this->emailExists($entity->email);
-        $this->passwordStrength();
-//        $this->usernameExists($entity->username);
+        $this->passwordStrength($entity->password);
     }
 
-    public function passwordStrength(string $password)
+    public function validateUpdate(EntityInterface $entity)
+    {
+        // TODO: Implement validateUpdate() method.
+    }
+
+    /**
+     * @throws UserPasswordIsTooWeakException
+     */
+    public function passwordStrength(string $password): void
     {
         $uppercase    = preg_match('@[A-Z]@', $password);
         $lowercase    = preg_match('@[a-z]@', $password);
         $number       = preg_match('@[0-9]@', $password);
         $specialchars = preg_match('@[^\w]@', $password);
 
-        if(!$specialchars || !$uppercase || !$lowercase || !$number) {
+        if(!$specialchars || !$uppercase || !$lowercase || !$number || (strlen($password) < 3 || strlen($password) > 16)) {
             throw new UserPasswordIsTooWeakException();
         }
     }

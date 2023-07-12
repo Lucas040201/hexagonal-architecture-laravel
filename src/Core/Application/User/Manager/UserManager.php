@@ -3,12 +3,11 @@
 namespace Core\Application\User\Manager;
 
 use Core\Application\BaseManager;
-use Core\Application\Interfaces\Response\ResponseInterface;
 use Core\Application\User\DTO\UserDTO;
 use Core\Application\User\Ports\UserManagerInterface;
 use Core\Application\User\Response\UserResponse;
 use Core\Application\User\Validators\UserValidator;
-use Core\Domain\Ports\UserRepositoryInterface;
+use Core\Domain\Users\Ports\UserRepositoryInterface;
 
 class UserManager extends baseManager implements UserManagerInterface {
 

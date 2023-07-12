@@ -5,7 +5,7 @@ namespace Core\Application;
 use Core\Application\Interfaces\DTO\DTOInterface;
 use Core\Application\Interfaces\Response\ResponseInterface;
 use Core\Application\Interfaces\Validators\ValidatorInterface;
-use Core\Domain\Interfaces\BaseRepositoryInterface;
+use Core\Domain\Users\Interfaces\BaseRepositoryInterface;
 
 abstract class BaseManager
 {
@@ -23,7 +23,7 @@ abstract class BaseManager
         try {
             $entity = $dto->mapToEntity();
 
-            $this->validator->validate($entity);
+            $this->validator->validateCreate($entity);
 
             $storedData = $this->repository->create($entity);
             $this->response->success = true;
