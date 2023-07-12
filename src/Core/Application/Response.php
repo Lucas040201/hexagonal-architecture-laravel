@@ -3,8 +3,9 @@
 namespace Core\Application;
 
 use Core\Application\Interfaces\DTO\DTOInterface;
+use Core\Application\Interfaces\Response\ResponseInterface;
 
-abstract class Response {
+abstract class Response implements ResponseInterface {
     public function __construct(
         public bool $success = false,
         public string $message = '',

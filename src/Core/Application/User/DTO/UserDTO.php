@@ -2,6 +2,9 @@
 
 namespace Core\Application\User\DTO;
 
+use Core\Domain\DomainExceptions\User\InvalidEmailException;
+use Core\Domain\DomainExceptions\User\ShortNameOrSurnameException;
+use Core\Domain\DomainExceptions\User\ShortPasswordException;
 use Core\Domain\Entities\Interfaces\EntityInterface;
 use DateTime;
 use Core\Application\Interfaces\DTO\DTOInterface;
@@ -21,6 +24,11 @@ class UserDTO implements DTOInterface {
 
     }
 
+    /**
+     * @throws InvalidEmailException
+     * @throws ShortNameOrSurnameException
+     * @throws ShortPasswordException
+     */
     public function mapToEntity() : UserEntity
     {
         return new UserEntity(

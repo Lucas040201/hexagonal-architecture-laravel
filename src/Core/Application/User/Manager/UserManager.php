@@ -3,11 +3,7 @@
 namespace Core\Application\User\Manager;
 
 use Core\Application\BaseManager;
-use Core\Application\Interfaces\DTO\DTOInterface;
 use Core\Application\Interfaces\Response\ResponseInterface;
-use Core\Application\Interfaces\Validators\ValidatorInterface;
-use Dotenv\Repository\RepositoryInterface;
-use Exception;
 use Core\Application\User\DTO\UserDTO;
 use Core\Application\User\Ports\UserManagerInterface;
 use Core\Application\User\Response\UserResponse;
@@ -20,8 +16,9 @@ class UserManager extends baseManager implements UserManagerInterface {
         private UserRepositoryInterface $repository,
         private UserValidator           $validator,
         private UserResponse            $response,
+        private UserDTO                 $dto
     )
     {
-        parent::__construct($repository, $validator, $response);
+        parent::__construct($repository, $validator, $response, $dto);
     }
 }

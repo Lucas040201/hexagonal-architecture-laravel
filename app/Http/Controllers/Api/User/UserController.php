@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Requests\CreateUserRequestController;
+use Core\Domain\DomainExceptions\User\InvalidEmailException;
+use Core\Domain\DomainExceptions\User\ShortNameOrSurnameException;
+use Core\Domain\DomainExceptions\User\ShortPasswordException;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -29,7 +32,12 @@ class UserController extends BaseController
             return response([
                     'Success' => false,
                     'message' => $e->getMessage(),
-                ], 400);
+                ], $e->getCode());
+        } catch(InvalidEmailException|ShortPasswordException|ShortNameOrSurnameException $e) {
+            return response([
+                'Success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch(Exception $e) {
             return response([
                 'Success' => false,

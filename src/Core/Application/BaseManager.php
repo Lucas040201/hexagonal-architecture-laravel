@@ -10,9 +10,10 @@ use Core\Domain\Interfaces\BaseRepositoryInterface;
 abstract class BaseManager
 {
     public function __construct(
-        private $repository,
-        private $validator,
-        private $response
+        private BaseRepositoryInterface $repository,
+        private ValidatorInterface $validator,
+        private ResponseInterface $response,
+        private DTOInterface $dtoBase
     )
     {
     }
@@ -37,7 +38,16 @@ abstract class BaseManager
 
     public function get(int $id): array
     {
+        try {
+            $storedData = $this->repository->get($id);
 
+            $this->response->success = true;
+            return $this->response->actionGetResponse(
+                $this->dtoBase::mapEntityToDTO($storedData),
+            );
+        } catch(Exception $e) {
+            throw new $e;
+        }
     }
 
     public function update(int $id, DTOInterface $userDTO): array
