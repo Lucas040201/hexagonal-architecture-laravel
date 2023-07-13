@@ -5,15 +5,15 @@ namespace Core\Application;
 use Core\Application\Interfaces\DTO\DTOInterface;
 use Core\Application\Interfaces\Response\ResponseInterface;
 use Core\Application\Interfaces\Validators\ValidatorInterface;
-use Core\Domain\Users\Interfaces\BaseRepositoryInterface;
+use Core\Domain\DomainInterfaces\Repository\BaseRepositoryInterface;
 
 abstract class BaseManager
 {
     public function __construct(
-        private BaseRepositoryInterface $repository,
-        private ValidatorInterface $validator,
-        private ResponseInterface $response,
-        private DTOInterface $dtoBase
+        private readonly BaseRepositoryInterface $repository,
+        private readonly ValidatorInterface      $validator,
+        private readonly ResponseInterface       $response,
+        private readonly DTOInterface            $dtoBase
     )
     {
     }
@@ -22,15 +22,12 @@ abstract class BaseManager
     {
         try {
             $entity = $dto->mapToEntity();
-
             $this->validator->validateCreate($entity);
 
-            $storedData = $this->repository->create($entity);
+            $this->repository->create($entity);
             $this->response->success = true;
             $this->response->message = 'Successfully Created';
-            return $this->response->actionCreatedResponse(
-                $dto::mapEntityToDTO($storedData),
-            );
+            return $this->response->actionCreatedResponse();
         } catch(Exception $e) {
             throw new $e;
         }

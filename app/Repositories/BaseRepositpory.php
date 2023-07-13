@@ -3,30 +3,27 @@
 namespace App\Repositories;
 
 use App\Models\Interfaces\ModelInterface;
-use Core\Domain\Interfaces\Entity\EntityInterface;
-use Core\Domain\Users\Interfaces\BaseRepositoryInterface;
+use Core\Domain\DomainInterfaces\Entity\EntityInterface;
+use Core\Domain\DomainInterfaces\Repository\BaseRepositoryInterface;
 
 
 abstract class BaseRepositpory implements BaseRepositoryInterface
 {
     public function __construct(
         protected ModelInterface $model,
-        protected EntityInterface $entity
     )
     {
     }
 
-    public function get(int $id): EntityInterface
+    public function get(int $id): array
     {
-        $item = $this->model->findById($id);
-        return $this->entity::factory($item);
+        $response = $this->model->findById($id);
+        return $response->attributesToArray();
     }
 
-    public function create(EntityInterface $item): EntityInterface
+    public function create(EntityInterface $item): void
     {
-        $response = $this->model->create((array) $item);
-        $storedData = $response->attributesToArray();
-        return $this->entity::factory($storedData);
+        $this->model->create((array) $item);
     }
 
     public function update(int $id, $data)

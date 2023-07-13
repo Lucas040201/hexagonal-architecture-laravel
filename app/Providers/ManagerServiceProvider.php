@@ -26,8 +26,7 @@ class ManagerServiceProvider extends ServiceProvider
 
         $this->app->bind(UserRepositoryInterface::class, function() {
             return new UserRepository(
-                $this->app->make(Users::class),
-                $this->app->make(UserEntity::class)
+                $this->app->make(Users::class)
             );
         });
     }

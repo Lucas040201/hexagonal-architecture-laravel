@@ -6,7 +6,7 @@ use Core\Application\Interfaces\Validators\ValidatorInterface;
 use Core\Application\User\Exceptions\UserEmailAlreadyExistsException;
 use Core\Application\User\Exceptions\UserPasswordIsTooWeakException;
 use Core\Application\User\Exceptions\UserUsernameAlreadyExistsException;
-use Core\Domain\Interfaces\Entity\EntityInterface;
+use Core\Domain\DomainInterfaces\Entity\EntityInterface;
 use Core\Domain\Users\Ports\UserRepositoryInterface;
 
 class UserValidator implements ValidatorInterface {

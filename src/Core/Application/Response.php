@@ -11,7 +11,7 @@ abstract class Response implements ResponseInterface {
         public string $message = '',
     ){}
 
-    abstract public function actionCreatedResponse(DTOInterface $dto): array;
+    abstract public function actionCreatedResponse(): array;
     abstract public function actionGetResponse(DTOInterface $dto): array;
     abstract public function actionUpdatedResponse(): array;
     abstract public function actionDeletedResponse(): array;

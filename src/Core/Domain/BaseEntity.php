@@ -2,7 +2,7 @@
 
 namespace Core\Domain;
 
-use Core\Domain\Interfaces\Entity\EntityInterface;
+use Core\Domain\DomainInterfaces\Entity\EntityInterface;
 
 abstract class BaseEntity implements EntityInterface
 {

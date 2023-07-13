@@ -15,17 +15,11 @@ class UserResponse extends Response {
         ) {
     }
 
-    public function actionCreatedResponse(UserDTO|DTOInterface $dto): array
+    public function actionCreatedResponse(): array
     {
         return [
             'success' => $this->success,
-            'message' => $this->message,
-            'data' => [
-                'id' => $dto->id,
-                'name' => $dto->name,
-                'surname' => $dto->surname,
-                'email' => $dto->email
-            ]
+            'message' => $this->message
         ];
     }
 

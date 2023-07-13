@@ -3,7 +3,7 @@
 namespace Core\Application\User\DTO;
 
 use Core\Application\Interfaces\DTO\DTOInterface;
-use Core\Domain\Interfaces\Entity\EntityInterface;
+use Core\Domain\DomainInterfaces\Entity\EntityInterface;
 use Core\Domain\Users\Entities\UserEntity;
 use DateTime;
 
@@ -48,6 +48,11 @@ class UserDTO implements DTOInterface {
             $entity->created_at,
             $entity->updated_at
         );
+    }
+
+    public static function updateDto(array $data): DTOInterface
+    {
+        return new static(...$data);
     }
 
 }

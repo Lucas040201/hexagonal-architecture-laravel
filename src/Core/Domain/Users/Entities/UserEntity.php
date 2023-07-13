@@ -4,11 +4,13 @@ namespace Core\Domain\Users\Entities;
 
 use Core\Domain\BaseEntity;
 use Core\Domain\DomainExceptions\EntityValidationException;
+use Core\Domain\DomainValidator\DomainValidation;
 use DateTime;
 
 class UserEntity extends BaseEntity {
     /**
      * @throws EntityValidationException
+     * @throws \Exception
      */
     public function __construct(
         public int|string $id = '',
@@ -20,6 +22,7 @@ class UserEntity extends BaseEntity {
         public DateTime|string $updated_at = '',
     )
     {
+        $this->created_at  = $this->created_at ? new DateTime($this->created_at) : new DateTime();
         $this->validateEntity();
     }
 
@@ -28,15 +31,9 @@ class UserEntity extends BaseEntity {
      */
     protected function validateEntity(): void
     {
-        if(empty($this->created_at) && empty($this->updated_at)) return;
-
-        if(strlen($this->name) < 3 || strlen($this->surname) < 3) {
-            throw new EntityValidationException('The first and last name fields must have at least 2 characters', 400);
-        }
-
-        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            throw new EntityValidationException('The email field must be a valid email address.', 400);
-        }
+        DomainValidation::strMinLength($this->name, 3, 'The name must have at least 3 characters');
+        DomainValidation::strMinLength($this->surname, 3, 'The surname must have at least 3 characters');
+        DomainValidation::strFilterValidation($this->email, FILTER_VALIDATE_EMAIL, 'The Email field is invalid');
     }
 
 }
