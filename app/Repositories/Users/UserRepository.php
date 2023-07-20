@@ -2,22 +2,29 @@
 
 namespace App\Repositories\Users;
 
+use App\Models\Users;
 use App\Repositories\BaseRepositpory;
 use Core\Domain\Users\Entities\UserEntity;
 use Core\Domain\Users\Ports\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface {
 
-    public function create(UserEntity $item): void
+    public function __construct(private readonly Users $userModel)
+    {
+
+    }
+
+    public function create(UserEntity $user): void
     {
         $user = [
-            'name' => $item->getName(),
-            'surname' => $item->getSurname(),
-            'email' => $item->getEmail(),
-            'password' => $item->getPassword(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword(),
+            'createdAt' => $user->getCreatedAt()
         ];
 
-        $this->model->create($user);
+        $this->userModel->create($user);
     }
 
     public function get(int $id): array
@@ -35,13 +42,13 @@ class UserRepository implements UserRepositoryInterface {
         // TODO: Implement delete() method.
     }
 
-    public function emailExists(string $email)
+    public function emailExists(string $email): bool
     {
-        return !!$this->model::where('email', $email)->exists();
+        return !!$this->userModel::where('email', $email)->exists();
     }
 
-    public function usernameExists(string $username)
+    public function usernameExists(string $username): bool
     {
-        return !!$this->model::where('username', $username)->exists();
+        return !!$this->userModel::where('username', $username)->exists();
     }
 }

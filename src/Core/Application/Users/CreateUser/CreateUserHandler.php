@@ -18,6 +18,7 @@ class CreateUserHandler implements CreateUserHandlerInterface
         $user = new UserEntity();
         $user->setName($createUserDto->getName());
         $user->setSurname($createUserDto->getSurname());
+        $user->setEmail($createUserDto->getEmail());
         $user->setPassword($createUserDto->getPassword());
         return $this->createUserUseCase->execute($user);
     }

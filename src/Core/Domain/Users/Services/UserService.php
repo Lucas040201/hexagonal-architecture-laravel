@@ -21,6 +21,5 @@ class UserService
         $this->validator->validateEmail($user->getEmail());
         $this->validator->validatePassword($user->getPassword());
         $this->userRepository->create($user);
-
     }
 }

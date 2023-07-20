@@ -17,13 +17,7 @@ class ManagerServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(CreateUserHandlerInterface::class, CreateUserHandler::class);
-
-
-        $this->app->bind(UserRepositoryInterface::class, function() {
-            return new UserRepository(
-                $this->app->make(Users::class)
-            );
-        });
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**

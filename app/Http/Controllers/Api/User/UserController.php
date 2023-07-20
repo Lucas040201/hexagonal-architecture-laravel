@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Requests\CreateUserRequestController;
 use Core\Application\Users\CreateUser\CreateUserHandler;
 use Core\Application\Users\CreateUser\CreateUserRequest;
+use Core\Domain\DomainExceptions\EntityValidationException;
+use Core\Domain\Users\Exceptions\UserEmailAlreadyExistsException;
+use Core\Domain\Users\Exceptions\UserUsernameAlreadyExistsException;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -27,7 +30,7 @@ class UserController extends BaseController
             $this->createUserHandler->handle($createUserRequest);
             return response([
                 'Success' => true,
-                'message' => "SuccessFully Created!!"
+                'message' => "Created successfully!!"
             ]);
         } catch(UserEmailAlreadyExistsException|UserUsernameAlreadyExistsException $e) {
             return response([

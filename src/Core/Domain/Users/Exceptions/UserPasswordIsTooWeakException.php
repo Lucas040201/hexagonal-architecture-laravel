@@ -1,7 +1,5 @@
 <?php
-namespace Core\Application\User\Exceptions;
-
-use App\Core\Domain\DomainExceptions\User\Throwable;
+namespace Core\Domain\Users\Exceptions;
 
 class UserPasswordIsTooWeakException extends \Exception {
     public function __construct(string $message = "", int $code = 400, ?Throwable $previous = null)

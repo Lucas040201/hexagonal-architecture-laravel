@@ -11,6 +11,6 @@ class CreateUserUseCase
 
     public function execute(UserEntity $user)
     {
-        $createdUser = $this->userService->create($user);
+        $this->userService->create($user);
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Core\Domain\Users\Validators;
 
-use Core\Application\User\Exceptions\UserEmailAlreadyExistsException;
-use Core\Application\User\Exceptions\UserPasswordIsTooWeakException;
-use Core\Application\User\Exceptions\UserUsernameAlreadyExistsException;
 use Core\Domain\Base\Validator\BaseValidator;
+use Core\Domain\Users\Exceptions\UserEmailAlreadyExistsException;
+use Core\Domain\Users\Exceptions\UserPasswordIsTooWeakException;
+use Core\Domain\Users\Exceptions\UserUsernameAlreadyExistsException;
 use Core\Domain\Users\Ports\UserRepositoryInterface;
 
 class CreateUserValidator extends BaseValidator
