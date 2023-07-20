@@ -3,12 +3,12 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\interface\RequestInterface;
+use Core\Application\Users\CreateUser\CreateUserDTO;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
-use Core\Application\User\DTO\UserDTO;
 
 class CreateUserRequestController extends FormRequest implements RequestInterface
 {
@@ -46,9 +46,14 @@ class CreateUserRequestController extends FormRequest implements RequestInterfac
 		);
     }
 
-    public function createDTO(): UserDTO
+    public function createDTO(): CreateUserDTO
     {
         $data = $this->all();
-        return new UserDTO(...$data);
+        return new CreateUserDTO(
+            $data['name'],
+            $data['surname'],
+            $data['email'],
+            $data['password'],
+        );
     }
 }

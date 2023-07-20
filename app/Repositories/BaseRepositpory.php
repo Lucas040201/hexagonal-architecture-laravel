@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Interfaces\ModelInterface;
 use Core\Domain\DomainInterfaces\Entity\EntityInterface;
 use Core\Domain\DomainInterfaces\Repository\BaseRepositoryInterface;
+use Core\Domain\Users\Entities\UserEntity;
 
 
 abstract class BaseRepositpory implements BaseRepositoryInterface

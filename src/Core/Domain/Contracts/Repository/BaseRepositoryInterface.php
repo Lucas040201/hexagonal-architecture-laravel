@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Domain\DomainInterfaces\Repository;
+namespace Core\Domain\Contracts\Repository;
 
-use Core\Domain\DomainInterfaces\Entity\EntityInterface;
+use Core\Domain\Contracts\Entity\EntityInterface;
 
 interface BaseRepositoryInterface
 {

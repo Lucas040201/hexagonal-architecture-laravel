@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Requests\CreateUserRequestController;
-use Core\Application\User\Exceptions\UserEmailAlreadyExistsException;
-use Core\Application\User\Exceptions\UserUsernameAlreadyExistsException;
-use Core\Application\User\Manager\UserManager;
-use Core\Domain\DomainExceptions\EntityValidationException;
+use Core\Application\Users\CreateUser\CreateUserHandler;
+use Core\Application\Users\CreateUser\CreateUserRequest;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -18,14 +16,19 @@ class UserController extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     public function __construct(
-        private UserManager $userManager
+        private CreateUserHandler $createUserHandler
     )
     {}
 
     public function createUser(CreateUserRequestController $request) {
         try {
-            $userDTO = $request->createDTO();
-            return response($this->userManager->create($userDTO));
+            $createUserDTO = $request->createDTO();
+            $createUserRequest = new CreateUserRequest($createUserDTO);
+            $this->createUserHandler->handle($createUserRequest);
+            return response([
+                'Success' => true,
+                'message' => "SuccessFully Created!!"
+            ]);
         } catch(UserEmailAlreadyExistsException|UserUsernameAlreadyExistsException $e) {
             return response([
                     'Success' => false,

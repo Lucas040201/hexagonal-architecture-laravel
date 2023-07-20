@@ -4,9 +4,8 @@ namespace App\Providers;
 
 use App\Models\Users;
 use App\Repositories\Users\UserRepository;
-use Core\Application\User\Manager\UserManager;
-use Core\Application\User\Ports\UserManagerInterface;
-use Core\Domain\Users\Entities\UserEntity;
+use Core\Application\Users\CreateUser\CreateUserHandler;
+use Core\Application\Users\Ports\CreateUserHandlerInterface;
 use Core\Domain\Users\Ports\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,11 +16,7 @@ class ManagerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UserManagerInterface::class, function() {
-            return new UserManager(
-                $this->app->make(UserRepositoryInterface::class),
-            );
-        });
+        $this->app->bind(CreateUserHandlerInterface::class, CreateUserHandler::class);
 
 
         $this->app->bind(UserRepositoryInterface::class, function() {
